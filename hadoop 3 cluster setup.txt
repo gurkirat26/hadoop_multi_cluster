@@ -1,0 +1,195 @@
+﻿Installation of Hadoop
+1. Install java
+2. Go to  Oracle java -> java se dev kit-> java 8 or java jdk 20
+3. Login with  java id nsut id and normal password with cap first letter
+4. Go to apache hadoop ->download->3.2.4-> binary and start downloading
+5. Extract the folder to the c drive
+6. hadoop -> create folder named data
+7. Inside data create 3 more folders namenode and datanode amd temp
+8. hadoop -> create folder named local
+9. Environment variables-> sysvariables-> JAVA_HOME-> C:\Java\Programfiles\jdk-20\
+10. HADOOP_HOME-> C:\hadoop
+11. In Path mai %JAVA_HOME%\bin
+12. In Path mai %HADOOP_HOME%\bin
+13. In Path mai %HADOOP_HOME%\sbin
+14. hadoop->etc->hadoop->hadoop-env.cmd mai
+15. Replace java home path with C:\PROGRA~1\Java\jdk-20…
+16. Configure Hadoop
+1. Hadoop ->etc->hadoop->core xml->edit
+2. Write these commands
+3. <configuration>
+4. <property>
+5. <name>fs.defaultFS</name>
+6. <value>hdfs://hadoop-namenode:9820/</value>
+7. <description>NameNode URI</description>
+8. </property>
+9. <property>
+10. <name>io.file.buffer.size</name>
+11. <value>131072</value>
+12. <description>Buffer size</description>
+13. </property>
+14. </configuration>
+15. 16. Now go to the hdfs-site.xml file and write the following commands
+17.  <configuration>
+18. <property>
+19. <name>dfs.namenode.name.dir</name>
+20. <value>C:\hadoop\data\namenode</value>
+21. <description>NameNode directory for namespace and transaction logs storage.</description>
+22. </property>
+23. <property>
+24. <name>dfs.datanode.data.dir</name>
+25. <value>C:\hadoop\data\datanode</value>
+26. <description>DataNode directory</description>
+27. </property>
+28. <property>
+29. <name>dfs.replication</name>
+30. <value>3</value>
+31. </property>
+32. <property>
+33. <name>dfs.permissions</name>
+34. <value>false</value>
+35. </property>
+36. <property>
+37. <name>dfs.datanode.use.datanode.hostname</name>
+38. <value>false</value>
+39. </property>
+40. <property>
+41. <name>dfs.namenode.datanode.registration.ip-hostname-check</name>
+42. <value>false</value>
+43. </property>
+44. </configuration>
+45. 46.  Now again hadoop->etc->hadoop->mapred-site.xml
+47. Write these commands under configuration
+48. <configuration>
+49. <property>
+50. <name>mapreduce.framework.name</name>
+51. <value>yarn</value>
+52. <description>MapReduce framework name</description>
+53. </property>
+54. <property>
+55. <name>mapreduce.jobhistory.address</name>
+56. <value>hadoop-namenode:10020</value>
+57. <description>Default port is 10020.</description>
+58. </property>
+59. <property>
+60. <name>mapreduce.jobhistory.webapp.address</name>
+61. <value> hadoop-namenode:19888</value>
+62. <description>Default port is 19888.</description>
+63. </property>
+64. <property>
+65. <name>mapreduce.jobhistory.intermediate-done-dir</name>
+66. <value>/mr-history/tmp</value>
+67. <description>Directory where history files are written by MapReduce jobs.</description>
+68. </property>
+69. <property>
+70. <name>mapreduce.jobhistory.done-dir</name>
+71. <value>/mr-history/done</value>
+72. <description>Directory where history files are managed by the MR JobHistory Server.</description>
+73. </property>
+74. </configuration>
+75. 76.  Lastly Now again hadoop->etc->hadoop->yarn-site.xml
+77. Write these commands
+78. <configuration>
+79. <property>
+80. <name>yarn.nodemanager.aux-services</name>
+81. <value>mapreduce_shuffle</value>
+82. <description>Yarn Node Manager Aux Service</description>
+83. </property>
+84. <property>
+85. <name>yarn.nodemanager.aux-services.mapreduce.shuffle.class</name>
+86. <value>org.apache.hadoop.mapred.ShuffleHandler</value>
+87. </property>
+88. <property>
+89. <name>yarn.nodemanager.local-dirs</name>
+90. <value>C:hadoop\/local</value>
+91. </property>
+92. <property>
+93. <name>yarn.nodemanager.log-dirs</name>
+94. <value>C:hadoop\/logs</value>
+95. </property>
+96. </configuration>
+97. Delete the bin folder
+98. Now download the folder from this link
+99. https://drive.google.com/file/d/1nCN_jK7EJF2DmPUUxgOggnvJ6k6tksYz/view
+100. Now download the msvcr120.dll file
+101. Now paste this dll file in the windows32 folder
+102. download the msvc 170
+103. In cmd as admin write Hdfs namenode -format
+104. Also format hdfs datanode-format
+105. hadoop->etc->hadoop->workers
+106. Replace localhost here by these
+107. Hadoop-namenode
+108. Hadoop-datanode2 //for more datanodes add here
+109. Notepad as administrator-> system32->drivers->etc->show all->hosts
+110. Now add ip address of namenode and datanode
+111. 127.0.0.1 hadoop-namenode
+112. 192.168.29.1 hadoop-datanode2 //for more datanodes add here
+113. Now cd over to hadoop
+114. hadoop->sbin
+115. Write start-dfs.cmd
+116. Name node and data node should start working
+117. Jps to show state
+118. Start-yarn.cmd
+119. Jps all 4 demons running
+120. Localhost:9870
+121. Localhost:8088
+122.  For more details 
+123. https://towardsdatascience.com/installing-hadoop-3-2-1-single-node-cluster-on-windows-10-ac258dd48aef
+124. For datanode
+125. Download hadoop
+126. Replace bin
+127. Now rename as hadoop_slave
+128. Add JAVA_HOME to the hadoop-env.cmd file
+129. Make data  and datanode folder within data
+130. Add env variables
+131. Replace these files
+132. hdfs-site.xml
+133. <configuration>
+134. <property>
+135. <name>dfs.datanode.data.dir</name>
+136. <value>file:///opt/hdfs/datanode</value>
+137. <description>DataNode directory</description>
+138. </property>
+139. <property>
+140. <name>dfs.replication</name>
+141. <value>3</value>
+142. </property>
+143. <property>
+144. <name>dfs.permissions</name>
+145. <value>false</value>
+146. </property>
+147. <property>
+148. <name>dfs.datanode.use.datanode.hostname</name>
+149. <value>false</value>
+150. </property>
+151. </configuration>
+152. core-site.xml
+153. <configuration>
+154. <property>
+155. <name>fs.defaultFS</name>
+156. <value>hdfs://hadoop-namenode:9820/</value>
+157. <description>NameNode URI</description>
+158. </property>
+159. </configuration>
+160. yarn-site.xml
+161. <configuration>
+162. <property>
+163. <name>yarn.nodemanager.aux-services</name>
+164. <value>mapreduce_shuffle</value>
+165. <description>Yarn Node Manager Aux Service</description>
+166. </property>
+167. </configuration>
+168. mapred-site.xml
+169. <configuration>
+170. <property>
+171. <name>mapreduce.framework.name</name>
+172. <value>yarn</value>
+173. <description>MapReduce framework name</description>
+174. </property>
+175. </configuration>
+176. Notepad as administrator
+177. Driver etc hosts
+178. Namenode IP tab hadoop-namenode
+179. Apna IP tab hadoop-datanode2
+180. Now start-dfs on datanode and start-all on namenode
+181.
